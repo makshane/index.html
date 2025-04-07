@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pequenos Bilionário</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: #f4f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #0f8b8d, #00b894);
+      color: #fff;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+    }
+    .secret {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+    }
+    .container {
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .ebook {
+      background: #ffffff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .ebook img {
+      width: 80px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .ebook-details {
+      flex: 1;
+    }
+    .ebook h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .btn {
+      background: #0984e3;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #74b9ff;
+    }
+    .form-section {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    input[type="text"], input[type="file"], input[type="password"] {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pequenos Bilionári<span class="secret" onclick="abrirPainel()">o</span></h1>
+    <p>Descubra eBooks que mudam vidas</p>
+  </header>  <div class="container">
+    <div id="ebooks-list">
+      <!-- eBooks cadastrados aparecerão aqui -->
+    </div><div class="form-section" id="admin-area">
+  <h2>Cadastrar novo eBook</h2>
+  <input type="text" id="ebook-name" placeholder="Nome do eBook">
+  <input type="file" id="ebook-img" placeholder="Exportar imagem do eBook">
+  <input type="text" id="ebook-link" placeholder="Link do produto (afiliado)">
+  <button class="btn" onclick="addEbook()">Cadastrar</button>
+</div>
+
+  </div>  <script>
+    const senhaCorreta = "Makshanne2024935718841931946675";
+
+    function abrirPainel() {
+      const senha = prompt("Digite a senha secreta:");
+      if (senha === senhaCorreta) {
+        document.getElementById("admin-area").style.display = "block";
+      } else {
+        alert("Senha incorreta!");
+      }
+    }
+
+    function addEbook() {
+      const nome = document.getElementById("ebook-name").value;
+      const link = document.getElementById("ebook-link").value;
+      const imgFile = document.getElementById("ebook-img").files[0];
+      const imgURL = URL.createObjectURL(imgFile);
+
+      if (nome && link && imgFile) {
+        const ebookDiv = document.createElement("div");
+        ebookDiv.className = "ebook";
+        ebookDiv.innerHTML = `
+          <img src="${imgURL}" alt="${nome}">
+          <div class="ebook-details">
+            <h2>${nome}</h2>
+            <a href="${link}" target="_blank" class="btn">Comprar</a>
+          </div>
+        `;
+        document.getElementById("ebooks-list").appendChild(ebookDiv);
+
+        document.getElementById("ebook-name").value = "";
+        document.getElementById("ebook-link").value = "";
+        document.getElementById("ebook-img").value = "";
+      } else {
+        alert("Preenche todos os campos!");
+      }
+    }
+  </script></body>
+</html>
